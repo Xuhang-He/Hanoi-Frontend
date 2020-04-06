@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       <Header />
       <Channel />
-      <Footer />
+      {/*<Footer />*/}
     </div>
   );
 }

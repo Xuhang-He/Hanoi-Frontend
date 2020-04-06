@@ -1,23 +1,39 @@
 import React from "react";
 import "./style.css";
-
-export default function Channel(){
-    return (
-        <div>
-            <h2>lalalla</h2>
-            <div className="info-block">
-                <div className="avatar-wrapper">
-
-                </div>
-                <div className="info-container">
-                    <div className="info-header"></div>
-                    <div className="info-content"></div>
-                    <div className="info-bottom"></div>
-                </div>
+import InfoBlock from "./components/InfoBlock";
+import TabBlock from "./components/TabBlock";
 
 
-            </div>
-        </div>
+class Channel extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			channel: {},
+			isLoading: true,
+		}
+	}
 
-    );
+	async componentDidMount() {
+		const response = await fetch('http://localhost:8080/channel?id=124');
+		const body = await response.json();
+		console.log(body);
+		this.setState({channel: body, isLoading: false});
+	}
+
+	render() {
+		const {channel, isLoading} = this.state;
+
+		if (isLoading) {
+			return <p>Loading....</p>;
+		}
+
+		return (
+			<div>
+				<InfoBlock channel={channel}/>
+				<TabBlock />
+			</div>
+		);
+	}
 }
+
+export default Channel;
